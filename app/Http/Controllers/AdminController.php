@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use App\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class AdminController extends Controller
+{
+    public function index()
+    {
+        $users = User::with('role')->get();
+        return response()->json($users);
+    }
+
+    public function createUser(Request $request)
+    {
+        $request->validate([
+            'user_name' => 'required',
+            'user_lastname' => 'required',
+            'user_email' => 'required|email|unique:usuarios',
+            'user_password' => 'required',
+            'user_coursenumber' => 'required',
+            'user_program' => 'required',
+            'fk_id_rol' => 'required|exists:roles,id_rol',
+        ]);
+
+        $user = User::create([
+            'user_name' => $request->user_name,
+            'user_lastname' => $request->user_lastname,
+            'user_email' => $request->user_email,
+            'user_password' => Hash::make($request->user_password),
+            'user_coursenumber' => $request->user_coursenumber,
+            'user_program' => $request->user_program,
+            'fk_id_rol' => $request->fk_id_rol,
+        ]);
+
+        return response()->json($user, 201);
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['message' => 'Usuario eliminado']);
+    }
+
+    public function getRoles()
+    {
+        return response()->json(Role::all());
+    }
+}

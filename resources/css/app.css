@@ -1,0 +1,256 @@
+@charset "UTF-8";
+
+/* =========================================
+   ESTILOS GENERALES
+   ========================================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    /* Fondo con gradiente oscuro y la imagen que proporcionaste */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/Icons/background.jpeg');
+    animation: moveBackground 30s linear infinite;
+    background-size: 68%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: all 0.3s ease;
+
+}
+
+@keyframes moveBackground {
+    from {
+        background-position: 0% center;
+    }
+    to {
+        background-position: 100% center;
+    }
+}
+
+
+/* =========================================
+   CONTENEDORES GLASSMORPHISM (Efecto Cristal)
+   ========================================= */
+.glass-box {
+    background: rgba(10, 10, 10, 0.55);
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border: 2px solid rgba(170, 209, 170, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.3s ease;
+}
+
+/* El registro necesita un poco más de ancho */
+.glass-box.register-box {
+    max-width: 800px;
+}
+
+/* =========================================
+   IMÁGENES Y TIPOGRAFÍA
+   ========================================= */
+.logosena {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* =========================================
+   INPUTS ANIMADOS (Floating Labels)
+   ========================================= */
+.user-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+/* Animación cuando el input está enfocado o tiene texto */
+.user-box input:focus ~ label,
+.user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #02d914;
+    font-size: 12px;
+}
+
+/* =========================================
+   BOTONES NEÓN (Glowing Buttons)
+   ========================================= */
+.btn-glow {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    border-radius: 10px;
+    border: 2px solid rgba(2, 217, 20, 0.72);
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.btn-glow:hover {
+    background: #02d914;
+    color: #fff;
+    box-shadow: 0 0 5px #02e915,
+                0 0 25px #00d812,
+                0 0 50px #00eb14,
+                0 0 100px #00d612;
+}
+
+/* =========================================
+   ENLACES CUSTOM
+   ========================================= */
+.custom-link {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.custom-link:hover {
+    color: #02d914;
+    text-shadow: 0 0 5px #02d914;
+    text-decoration: underline;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer-text {
+    font-size: 0.85rem;
+    color: rgba(232, 252, 235, 0.74);
+    background: rgba(10, 10, 10, 0.55);
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border: 2px solid rgba(170, 209, 170, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/*        */
+
+:root {
+            --primary-color:#02d914;;
+            --success-color: #16a34a;
+            --bg-color: rgba(10, 10, 10, 0.55);
+            --card-bg: rgba(10, 10, 10, 0.55);
+            --text-main: #ffffff;
+            --hoover-color: gray; 
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 2px solid rgba(170, 209, 170, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h2 { margin-bottom: 2rem; color: var(--primary-color); }
+
+        .fingerprint-section {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hand-card {
+            flex: 1;
+            min-width: 250px;
+            border: 2px dashed var(--primary-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hand-card:hover {
+            border-color: var(--primary-color);
+            background-color: var(--hoover-color)
+        }
+
+        .icon-huella {
+            font-size: 80px !important;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hand-card.active .icon-huella {
+            color: var(--primary-color);
+        }
+
+        .btn-registrar {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .btn-registrar:hover {
+            background-color: #1d4ed8;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            background: var(--primary-color);
+            color: var(--text-main);
+        }
+
+        /* Estilo para simular huella capturada */
+        .captured {
+            border-color: var(--success-color);
+            background-color: #f0fdf4;
+        }
+        .captured .icon-huella { color: var(--success-color); }
+
+
+
