@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Admin = () => {
+    const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -31,6 +33,16 @@ const Admin = () => {
         };
         fetchData();
     }, []);
+
+    const handleLogout = async () => { // Logica para el log-out asincronica 
+        try {
+            await axios.post('/api/logout');
+            navigate('/');
+        } catch (error) {
+            console.error('Error al cerrar sesión', error);
+            navigate('/');
+        }
+    };
 
     const handleEditClick = (user) => {
         setEditingUser(user.id_usuario);
@@ -92,11 +104,13 @@ const Admin = () => {
     if (loading) return <div className="text-white text-center mt-5">Cargando...</div>;
 
     return (
-        <div className="container mt-5 text-white" style={{maxWidth: '1000px', minWidth: '300px'}}>
-            <h2 className="mb-4">Panel de Administración</h2>
+        <div className="container mt-5 text-white">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className="mb-0">Panel de Administración</h2>
+            </div>
             
             {editingUser && (
-                <div className="glass-box p-4 mb-5 mx-auto" style={{maxWidth: '1000px', minWidth: '300px'}}>
+                <div className="glass-box p-4 mb-5 mx-auto" style={{maxWidth: '800px'}}>
                     <h3 className="text-center mb-4">Editar Usuario</h3>
                     <form onSubmit={handleUpdate}>
                         <div className="row">
@@ -173,7 +187,14 @@ const Admin = () => {
                     </tbody>
                 </table>
             </div>
+            <br></br>
+                                                            <button className="btn btn-sm btn-outline-danger " onClick={handleLogout}>
+                    <span className="material-symbols-outlined">logout</span>
+                    Cerrar Sesión
+                </button>
         </div>
+        
+        
     );
 };
 

@@ -248,7 +248,7 @@ body {
         /* Estilo para simular huella capturada */
         .captured {
             border-color: var(--success-color);
-            background-color: #f0fdf4;
+            background-color: var(--bg-color);
         }
         .captured .icon-huella { color: var(--success-color); }
 
