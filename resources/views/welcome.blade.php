@@ -18,7 +18,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     </head>
     <body>
-        <div id="app"><h1>Prueba de Blade</h1></div>
+        <div id="app"></div>
         
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
