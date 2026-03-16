@@ -15,6 +15,7 @@
         <link rel='stylesheet' href='https://pro.fontawesome.com/releases/v5.10.2/css/all.css'>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+        @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     </head>
     <body>

@@ -8,7 +8,7 @@ body {
     padding: 0;
     font-family: 'Roboto';
     /* Fondo con gradiente oscuro y la imagen que proporcionaste */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/Icons/background.jpeg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../public/Icons/background.jpeg');
     animation: moveBackground 30s linear infinite;
     background-size: 68%;
     color: #fff;

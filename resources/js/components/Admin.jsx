@@ -5,11 +5,20 @@ const Admin = () => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [editingUser, setEditingUser] = useState(null);
+    const [formData, setFormData] = useState({
+        user_name: '',
+        user_lastname: '',
+        user_email: '',
+        user_password: '',
+        user_coursenumber: '',
+        user_program: '',
+        fk_id_rol: ''
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // In a real app, you'd need the sanctum token here
                 const usersResponse = await axios.get('/api/admin/users');
                 const rolesResponse = await axios.get('/api/admin/roles');
                 setUsers(usersResponse.data);
@@ -22,6 +31,51 @@ const Admin = () => {
         };
         fetchData();
     }, []);
+
+    const handleEditClick = (user) => {
+        setEditingUser(user.id_usuario);
+        setFormData({
+            user_name: user.user_name,
+            user_lastname: user.user_lastname,
+            user_email: user.user_email,
+            user_password: '', // Password empty for security, only update if filled
+            user_coursenumber: user.user_coursenumber,
+            user_program: user.user_program,
+            fk_id_rol: user.fk_id_rol
+        });
+    };
+
+    const handleCancelEdit = () => {
+        setEditingUser(null);
+        setFormData({
+            user_name: '',
+            user_lastname: '',
+            user_email: '',
+            user_password: '',
+            user_coursenumber: '',
+            user_program: '',
+            fk_id_rol: ''
+        });
+    };
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put(`/api/admin/users/${editingUser}`, formData);
+            setUsers(users.map(u => u.id_usuario === editingUser ? response.data : u));
+            alert('Usuario actualizado con éxito');
+            handleCancelEdit();
+        } catch (error) {
+            alert('Error al actualizar usuario: ' + (error.response?.data?.message || 'Error desconocido'));
+        }
+    };
 
     const handleDelete = async (id) => {
         if (window.confirm('¿Estás seguro de eliminar este usuario?')) {
@@ -38,10 +92,58 @@ const Admin = () => {
     if (loading) return <div className="text-white text-center mt-5">Cargando...</div>;
 
     return (
-        <div className="container mt-5 text-white">
+        <div className="container mt-5 text-white" style={{maxWidth: '1000px', minWidth: '300px'}}>
             <h2 className="mb-4">Panel de Administración</h2>
+            
+            {editingUser && (
+                <div className="glass-box p-4 mb-5 mx-auto" style={{maxWidth: '1000px', minWidth: '300px'}}>
+                    <h3 className="text-center mb-4">Editar Usuario</h3>
+                    <form onSubmit={handleUpdate}>
+                        <div className="row">
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Nombre</label>
+                                <input type="text" name="user_name" className="form-control bg-dark text-white border-success" value={formData.user_name} onChange={handleChange} required />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Apellido</label>
+                                <input type="text" name="user_lastname" className="form-control bg-dark text-white border-success" value={formData.user_lastname} onChange={handleChange} required />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Email</label>
+                                <input type="email" name="user_email" className="form-control bg-dark text-white border-success" value={formData.user_email} onChange={handleChange} required />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
+                                <input type="password" name="user_password" className="form-control bg-dark text-white border-success" value={formData.user_password} onChange={handleChange} />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Ficha</label>
+                                <input type="number" name="user_coursenumber" className="form-control bg-dark text-white border-success" value={formData.user_coursenumber} onChange={handleChange} required />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Programa</label>
+                                <input type="text" name="user_program" className="form-control bg-dark text-white border-success" value={formData.user_program} onChange={handleChange} required />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Rol</label>
+                                <select name="fk_id_rol" className="form-control bg-dark text-white border-success" value={formData.fk_id_rol} onChange={handleChange} required>
+                                    <option value="">Seleccione un rol</option>
+                                    {roles.map(role => (
+                                        <option key={role.id_rol} value={role.id_rol}>{role.rol_name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="d-flex gap-2 mt-3">
+                            <button type="submit" className="btn btn-success flex-grow-1">Guardar Cambios</button>
+                            <button type="button" className="btn btn-secondary flex-grow-1" onClick={handleCancelEdit}>Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+
             <div className="table-responsive glass-box p-4">
-                <table className="table table-dark table-hover">
+                <table className="table table-dark table-hover mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -49,7 +151,6 @@ const Admin = () => {
                             <th>Correo</th>
                             <th>Rol</th>
                             <th>Ficha</th>
-                            <th>Programa</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -59,11 +160,13 @@ const Admin = () => {
                                 <td>{user.id_usuario}</td>
                                 <td>{user.user_name} {user.user_lastname}</td>
                                 <td>{user.user_email}</td>
-                                <td>{user.role?.rol_name}</td>
+                                <td><span className="badge bg-success">{user.role?.rol_name}</span></td>
                                 <td>{user.user_coursenumber}</td>
-                                <td>{user.user_program}</td>
                                 <td>
-                                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id_usuario)}>Eliminar</button>
+                                    <div className="d-flex gap-2">
+                                        <button className="btn btn-warning btn-sm" onClick={() => handleEditClick(user)}>Editar</button>
+                                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id_usuario)}>Eliminar</button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
