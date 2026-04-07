@@ -1,0 +1,40 @@
+ Resumen Técnico: SenaAccess
+
+"SenaAccess" es un sistema integral de gestión de accesos y reportes diseñado para optimizar el control de entradas y salidas. El proyecto destaca por utilizar un enfoque de desarrollo ágil y moderno que prioriza la eficiencia administrativa y la experiencia del usuario final.
+
+Arquitectura: Monolito Moderno
+
+El sistema implementa una arquitectura de "Monolito Moderno" mediante el uso de "Inertia.js". 
+
+¿Por qué esta elección?: Combina la robustez y seguridad de un backend tradicional (Laravel) con la interactividad fluida de una aplicación de una sola página (SPA: Single Page Application) en React.
+
+Ventaja principal: Elimina la necesidad de construir una API REST compleja, permitiendo que los datos fluyan directamente desde los controladores a la interfaz, reduciendo los tiempos de desarrollo y mantenimiento.
+
+
+
+ Stack Tecnológico:
+
+*Backend: Laravel 11 & PHP 8.3 (Lógica de negocio y persistencia).
+
+*Frontend: React (Interfaz de Javascript&Typescript basada en componentes).
+
+*Estilos: Bootstrap 5 (Diseño responsivo y estandarizado).
+
+*Comunicación: Inertia.js (Sincronización servidor-cliente).
+
+*Build Tool: Vite (Compilación ultrarrápida de activos usando Hot Module Replacement).
+
+*Base de Datos: MySQL y XAMPP (Gestión relacional de datos por el momento LOCALES).
+
+*Control de versiones: GitBash y GitHub.
+
+ Funcionalidades Clave
+1. Control de Flujo: Registro en tiempo real de ingresos y egresos.
+2. Módulo de Reportes: Generación de estadísticas y visualización de datos administrativos.
+3. Seguridad: Autenticación de usuarios y protección de rutas gestionada por el núcleo de Laravel.
+4. Componentización: Interfaz modular construida en React, facilitando la escalabilidad de nuevas herramientas.
+
+---
+
+
+Este stack permite que "SenaAccess" sea una herramienta liviana, fácil de desplegar y con una curva de aprendizaje controlada, manteniendo los estándares de la industria actual en desarrollo web Full-Stack.
