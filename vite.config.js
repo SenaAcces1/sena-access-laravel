@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import react from '@vitejs/plugin-react'; // 
+import { defineConfig } from 'vite'; //import vite
+import laravel from 'laravel-vite-plugin'; //import plugin vite laravel 
+import react from '@vitejs/plugin-react'; // import de react 
 
-export default defineConfig({
+export default defineConfig({ 
     plugins: [
         laravel({
             input: [
