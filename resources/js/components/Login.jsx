@@ -14,6 +14,11 @@ const Login = () => {
                 user_email,
                 user_password
             });
+            
+            // Store token and user data
+            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('user_role', response.data.role);
+            
             alert(response.data.message);
             // Handle role-based navigation or storing tokens
             if (response.data.role === 'admin') {

@@ -55,18 +55,20 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 
-        Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login exitoso',
             'user' => $user,
-            'role' => $user->role->rol_name
+            'role' => $user->role->rol_name,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
+        $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Sesión cerrada']);
     }
 }
