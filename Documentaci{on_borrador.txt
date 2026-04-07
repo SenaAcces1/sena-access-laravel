@@ -10,7 +10,14 @@ El sistema implementa una arquitectura de "Monolito Moderno" mediante el uso de 
 
 Ventaja principal: Elimina la necesidad de construir una API REST compleja, permitiendo que los datos fluyan directamente desde los controladores a la interfaz, reduciendo los tiempos de desarrollo y mantenimiento.
 
+Desarrolladores:
 
+Camilo Montegranario - Back-end
+Laura Medina - Back-end
+Johan Mera - Back-end
+
+Andrés Arcos - Front-end
+Andrés Volverás - Front-end
 
  Stack Tecnológico:
 
