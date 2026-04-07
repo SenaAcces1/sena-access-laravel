@@ -43,7 +43,7 @@ const Register = () => {
         <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-4">
             <div className="glass-box register-box p-4 p-md-5 mx-3">
                 <div className="text-center mb-4">
-                    <h2 className="fw-bold">SENA ACCESS</h2>
+                    <h2 className="fw-bold">SenaAccess</h2>
                     <h4 className="mb-3">Registro</h4>
                     <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" />
                     <h5 className="fw-light">Por favor, llene correctamente los siguientes datos</h5>

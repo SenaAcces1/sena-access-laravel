@@ -37,9 +37,13 @@ const Admin = () => {
     const handleLogout = async () => { // Logica para el log-out asincronica 
         try {
             await axios.post('/api/logout');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user_role');
             navigate('/');
         } catch (error) {
             console.error('Error al cerrar sesión', error);
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user_role');
             navigate('/');
         }
     };

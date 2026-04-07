@@ -6,22 +6,22 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto';
-    /* Fondo con gradiente oscuro y la imagen que proporcionaste */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/Icons/background.jpeg');
-    /*background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/Icons/background-day.png'); */ 
-    animation: moveBackground 30s linear infinite;
-    background-size: 68%;
-    color: #fff;
+    font-family: 'Inter', 'Roboto', sans-serif;
+    /* Fondo con overlay claro y desenfoque sutil */
+    /* background: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.8)), url('/public/Icons/background-day.png') ; */
+    /* Fondo con overlay más oscuro y desenfoque sutil */
+    background: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.8)), url('/public/Icons/background.jpeg') ;
+    background-size: 60%; 
+    backdrop-filter: blur(2px); /* Suaviza el patrón de fondo */
+    animation: moveBackground 60s linear infinite; /* Animación más lenta para no distraer */
+    color: #ffffffd7;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
     transition: all 0.3s ease;
-
 }
-
 @keyframes moveBackground {
     from {
         background-position: 0% center;
@@ -37,10 +37,10 @@ body {
    ========================================= */
 .glass-box {
     background: rgba(10, 10, 10, 0.55);
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    box-shadow: 0 1px 20px rgba(32, 252, 3, 0.178);
     border: 2px solid rgba(170, 209, 170, 0.2);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(2px);
     border-radius: 15px;
     width: 100%;
     max-width: 450px;

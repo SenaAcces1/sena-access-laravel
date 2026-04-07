@@ -68,7 +68,7 @@ const Login = () => {
                     </div>
                     <div className="d-grid gap-2">
                         <button className="btn btn-glow w-100 fw-bold" type="submit">Ingresar</button>
-                        <br></br>
+                        <p className="mb-1 text-light text-center">Ingresar como invitado:</p>
                         <button className="btn btn-glow w-100" type="button">
                             <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>INVITADO</Link>
                         </button>
