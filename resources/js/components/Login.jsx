@@ -68,21 +68,20 @@ const Login = () => {
                     </div>
                     <div className="d-grid gap-2">
                         <button className="btn btn-glow w-100 fw-bold" type="submit">Ingresar</button>
+                        <br></br>
+                        <button className="btn btn-glow w-100" type="button">
+                            <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>INVITADO</Link>
+                        </button>
                     </div>
                 </form>
 
                 <div className="mt-4 text-center">
                     <p className="mb-1 text-light">¿No estás registrado? <Link to="/register" className="custom-link fw-bold">¡Regístrate aquí!</Link></p>
                     <p className="mb-3 text-light">¿Olvidaste tu contraseña? <Link to="/password-recovery" className="custom-link fw-bold">Recuperar Contraseña</Link></p>
-                    
                     <p className="mb-2 text-light">Otros métodos de inicio de sesión:</p>
                     <div className="d-grid gap-2">
                         <button className="btn btn-glow w-100" type="button">
                             <Link to="/fingerprint" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>HUELLA</Link>
-                        </button>
-                        O
-                        <button className="btn btn-glow w-100" type="button">
-                            <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>INVITADO</Link>
                         </button>
                     </div>
                 </div>
