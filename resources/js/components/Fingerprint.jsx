@@ -47,14 +47,14 @@ const Fingerprint = () => {
 
     return (
         <div className="container">
-            <h2>Registro Biométrico</h2>
-            <p>Por favor, coloque el dedo índice en el escáner para cada mano.</p>
+            <h2>Ingreso con huella digital</h2>
+            <p>Por favor, coloque el dedo en el escáner.</p>
 
             <div className="fingerprint-section">
                 
                 <div className={`hand-card ${leftCaptured ? 'captured' : ''}`} id="left-hand">
                     <span className={`material-symbols-outlined icon-huella ${leftCaptured ? 'text-success' : ''}`}>fingerprint</span>
-                    <h3>Mano Izquierda</h3>
+                    <h3>Indice Izquierdo</h3>
                     <button 
                         className="btn-registrar" 
                         onClick={() => handleScan('left')}
@@ -69,13 +69,13 @@ const Fingerprint = () => {
                         )}
                     </button>
                     <div className="status-badge" style={{ backgroundColor: leftCaptured ? '#16a34a' : '' }}>
-                        {scanningLeft ? 'Escaneando huella...' : leftCaptured ? 'Huella capturada con éxito' : 'Listo para capturar'}
+                        {scanningLeft ? 'Escaneando huella...' : leftCaptured ? 'Huella verificada con éxito' : 'Listo para capturar'}
                     </div>
                 </div>
 
                 <div className={`hand-card active ${rightCaptured ? 'captured' : ''}`} id="right-hand">
                     <span className={`material-symbols-outlined icon-huella ${rightCaptured ? 'text-success' : ''}`}>fingerprint</span>
-                    <h3>Mano Derecha</h3>
+                    <h3>Indice Derecho</h3>
                     <button 
                         className="btn-registrar" 
                         onClick={() => handleScan('right')}
@@ -90,7 +90,7 @@ const Fingerprint = () => {
                         )}
                     </button>
                     <div className="status-badge" style={{ backgroundColor: rightCaptured ? '#16a34a' : '' }}>
-                        {scanningRight ? 'Escaneando huella...' : rightCaptured ? 'Huella capturada con éxito' : 'Listo para capturar'}
+                        {scanningRight ? 'Escaneando huella...' : rightCaptured ? 'Huella Verificada con éxito' : 'Listo para capturar'}
                     </div>
                 </div>
 
@@ -98,7 +98,7 @@ const Fingerprint = () => {
             <br />
             <button className={`btn btn-glow w-100 ${allCaptured ? 'btn-success' : ''}`} type="button">
                 <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>
-                    {allCaptured ? 'FINALIZAR REGISTRO' : 'CONTINUAR'}
+                    {allCaptured ? 'CONTINUAR' : 'INGRESA AMBAS HUELLAS PARA CONTINUAR'}
                 </Link>
             </button>
         </div>

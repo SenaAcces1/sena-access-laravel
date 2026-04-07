@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use \Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -68,7 +69,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        /** @var \Laravel\Sanctum\PersonalAccessToken $token */
+        $token = $request->user()->currentAccessToken();
+        if ($token) {
+            $token->delete();
+        }     
         return response()->json(['message' => 'Sesión cerrada']);
     }
 }

@@ -20,6 +20,12 @@ const Loading = () => {
             height: '100vh',
             width: '100vw'
         }}>
+            <h1 style={{ color: 'lightgray' ,
+                         TextAlign: 'center',
+                         position: 'absolute',
+                         top: '20%',
+                         left: '45%',
+            }}>Bienvenido...</h1>
             <div className="loader"></div>
             <style>{`
                 .loader {

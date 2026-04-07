@@ -80,6 +80,10 @@ const Login = () => {
                         <button className="btn btn-glow w-100" type="button">
                             <Link to="/fingerprint" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>HUELLA</Link>
                         </button>
+                        O
+                        <button className="btn btn-glow w-100" type="button">
+                            <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>INVITADO</Link>
+                        </button>
                     </div>
                 </div>
             </div>
