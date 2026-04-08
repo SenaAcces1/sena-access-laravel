@@ -13,29 +13,21 @@ const Loading = () => {
     }, [navigate]);
 
     return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            width: '100vw'
-        }}>
-            <h1 style={{ color: 'lightgray' ,
-                         TextAlign: 'center',
-                         position: 'absolute',
-                         top: '20%',
-                         left: '45%',
-            }}>Bienvenido...</h1>
-            <div className="loader"></div>
+        <div className="vh-100 d-flex flex-column justify-content-center align-items-center fade-in-up">
+            <h1 className="fw-bold mb-4" style={{ color: '#02d914', textShadow: '0 0 15px rgba(2, 217, 20, 0.4)' }}>
+                Bienvenido al CCyS
+            </h1>
+            <div className="loader mb-3"></div>
+            <p className="text-light opacity-75 mt-3">Cargando sistema...</p>
             <style>{`
                 .loader {
-                    border: 15px solid rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-                    border-top: 15px solid #02d914;
+                    border: 8px solid rgba(2, 217, 20, 0.1);
+                    box-shadow: 0 0 20px rgba(2, 217, 20, 0.2);
+                    border-top: 8px solid #02d914;
                     border-radius: 50%;
-                    width: 60px;
-                    height: 60px;
-                    animation: spin 1s linear infinite;
+                    width: 80px;
+                    height: 80px;
+                    animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
                 }
                 
                 @keyframes spin {

@@ -46,8 +46,8 @@ const Fingerprint = () => {
     const allCaptured = leftCaptured && rightCaptured;
 
     return (
-        <div className="container">
-            <h2>Ingreso con huella digital</h2>
+        <div className="container fade-in-up my-5">
+            <h2 className="fw-bold">Ingreso con huella digital</h2>
             <p>Por favor, coloque el dedo en el escáner.</p>
 
             <div className="fingerprint-section">
