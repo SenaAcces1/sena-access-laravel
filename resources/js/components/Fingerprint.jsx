@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 const Fingerprint = () => {
+    // ... rest of state and effect
     const [leftCaptured, setLeftCaptured] = useState(false);
     const [rightCaptured, setRightCaptured] = useState(false);
     const [scanningLeft, setScanningLeft] = useState(false);
@@ -46,61 +48,64 @@ const Fingerprint = () => {
     const allCaptured = leftCaptured && rightCaptured;
 
     return (
-        <div className="container fade-in-up my-5">
-            <h2 className="fw-bold">Ingreso con huella digital</h2>
-            <p>Por favor, coloque el dedo en el escáner.</p>
+        <div className="d-flex flex-column align-items-center min-vh-100">
+            <div className="container fade-in-up my-auto py-5">
+                <h2 className="fw-bold">Ingreso con huella digital</h2>
+                <p>Por favor, coloque el dedo en el escáner.</p>
 
-            <div className="fingerprint-section">
-                
-                <div className={`hand-card ${leftCaptured ? 'captured' : ''}`} id="left-hand">
-                    <span className={`material-symbols-outlined icon-huella ${leftCaptured ? 'text-success' : ''}`}>fingerprint</span>
-                    <h3>Indice Izquierdo</h3>
-                    <button 
-                        className="btn-registrar" 
-                        onClick={() => handleScan('left')}
-                        disabled={scanningLeft || leftCaptured}
-                    >
-                        {scanningLeft ? (
-                            <><span className="material-symbols-outlined spin">sync</span> Escaneando...</>
-                        ) : leftCaptured ? (
-                            <><span className="material-symbols-outlined">check_circle</span> Completado</>
-                        ) : (
-                            <><span className="material-symbols-outlined">sensors</span> Escanear Izquierda</>
-                        )}
-                    </button>
-                    <div className="status-badge" style={{ backgroundColor: leftCaptured ? '#16a34a' : '' }}>
-                        {scanningLeft ? 'Escaneando huella...' : leftCaptured ? 'Huella verificada con éxito' : 'Listo para capturar'}
+                <div className="fingerprint-section">
+                    
+                    <div className={`hand-card ${leftCaptured ? 'captured' : ''}`} id="left-hand">
+                        <span className={`material-symbols-outlined icon-huella ${leftCaptured ? 'text-success' : ''}`}>fingerprint</span>
+                        <h3>Indice Izquierdo</h3>
+                        <button 
+                            className="btn-registrar" 
+                            onClick={() => handleScan('left')}
+                            disabled={scanningLeft || leftCaptured}
+                        >
+                            {scanningLeft ? (
+                                <><span className="material-symbols-outlined spin">sync</span> Escaneando...</>
+                            ) : leftCaptured ? (
+                                <><span className="material-symbols-outlined">check_circle</span> Completado</>
+                            ) : (
+                                <><span className="material-symbols-outlined">sensors</span> Escanear Izquierda</>
+                            )}
+                        </button>
+                        <div className="status-badge" style={{ backgroundColor: leftCaptured ? '#16a34a' : '' }}>
+                            {scanningLeft ? 'Escaneando huella...' : leftCaptured ? 'Huella verificada con éxito' : 'Listo para capturar'}
+                        </div>
                     </div>
-                </div>
 
-                <div className={`hand-card active ${rightCaptured ? 'captured' : ''}`} id="right-hand">
-                    <span className={`material-symbols-outlined icon-huella ${rightCaptured ? 'text-success' : ''}`}>fingerprint</span>
-                    <h3>Indice Derecho</h3>
-                    <button 
-                        className="btn-registrar" 
-                        onClick={() => handleScan('right')}
-                        disabled={scanningRight || rightCaptured}
-                    >
-                        {scanningRight ? (
-                            <><span className="material-symbols-outlined spin">sync</span> Escaneando...</>
-                        ) : rightCaptured ? (
-                            <><span className="material-symbols-outlined">check_circle</span> Completado</>
-                        ) : (
-                            <><span className="material-symbols-outlined">sensors</span> Escanear Derecha</>
-                        )}
-                    </button>
-                    <div className="status-badge" style={{ backgroundColor: rightCaptured ? '#16a34a' : '' }}>
-                        {scanningRight ? 'Escaneando huella...' : rightCaptured ? 'Huella Verificada con éxito' : 'Listo para capturar'}
+                    <div className={`hand-card active ${rightCaptured ? 'captured' : ''}`} id="right-hand">
+                        <span className={`material-symbols-outlined icon-huella ${rightCaptured ? 'text-success' : ''}`}>fingerprint</span>
+                        <h3>Indice Derecho</h3>
+                        <button 
+                            className="btn-registrar" 
+                            onClick={() => handleScan('right')}
+                            disabled={scanningRight || rightCaptured}
+                        >
+                            {scanningRight ? (
+                                <><span className="material-symbols-outlined spin">sync</span> Escaneando...</>
+                            ) : rightCaptured ? (
+                                <><span className="material-symbols-outlined">check_circle</span> Completado</>
+                            ) : (
+                                <><span className="material-symbols-outlined">sensors</span> Escanear Derecha</>
+                            )}
+                        </button>
+                        <div className="status-badge" style={{ backgroundColor: rightCaptured ? '#16a34a' : '' }}>
+                            {scanningRight ? 'Escaneando huella...' : rightCaptured ? 'Huella Verificada con éxito' : 'Listo para capturar'}
+                        </div>
                     </div>
-                </div>
 
+                </div>
+                <br />
+                <button className={`btn btn-glow w-100 ${allCaptured ? 'btn-success' : ''}`} type="button">
+                    <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>
+                        {allCaptured ? 'CONTINUAR' : 'INGRESA AMBAS HUELLAS PARA CONTINUAR'}
+                    </Link>
+                </button>
             </div>
-            <br />
-            <button className={`btn btn-glow w-100 ${allCaptured ? 'btn-success' : ''}`} type="button">
-                <Link to="/loading" className="custom-link fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>
-                    {allCaptured ? 'CONTINUAR' : 'INGRESA AMBAS HUELLAS PARA CONTINUAR'}
-                </Link>
-            </button>
+            <Footer />
         </div>
     );
 };

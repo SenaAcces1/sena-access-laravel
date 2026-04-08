@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -110,7 +111,7 @@ const Login = () => {
                         
                         <div className="position-relative text-center my-2">
                             <hr className="border-secondary opacity-25" />
-                            <span className="position-absolute top-50 start-50 translate-middle bg-dark px-3 text-light small opacity-50">O</span>
+                            <span className="position-absolute top-50 start-50 translate-middle theme-bg theme-text px-3 small opacity-50">O</span>
                         </div>
 
                         <Link to="/loading" className="btn btn-glow w-100 fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>
@@ -120,8 +121,8 @@ const Login = () => {
                 </form>
 
                 <div className="mt-4 text-center">
-                    <p className="mb-2 text-light opacity-75 small">¿No estás registrado? <Link to="/register" className="custom-link fw-bold text-success">¡Regístrate aquí!</Link></p>
-                    <p className="mb-4 text-light opacity-75 small">¿Olvidaste tu contraseña? <Link to="/password-recovery" className="custom-link fw-bold text-success">Recuperar</Link></p>
+                    <p className="mb-2 theme-text opacity-75 small">¿No estás registrado? <Link to="/register" className="custom-link fw-bold text-success">¡Regístrate aquí!</Link></p>
+                    <p className="mb-4 theme-text opacity-75 small">¿Olvidaste tu contraseña? <Link to="/password-recovery" className="custom-link fw-bold text-success">Recuperar</Link></p>
                     
                     <div className="d-grid gap-2">
                         <Link to="/fingerprint" className="btn btn-glow w-100 d-flex align-items-center justify-content-center gap-2" style={{textDecoration: 'none', color: 'inherit'}}>
@@ -131,10 +132,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <footer className="mt-auto py-4 text-center w-100 footer-text">
-                <p className="mb-0 fw-bold">_SenaAccess_</p>
-                <p className="mb-0 small opacity-75">© 2026 SENA & SCS. Todos los derechos reservados.</p>
-            </footer>
+            <Footer />
         </div>
     );
 };

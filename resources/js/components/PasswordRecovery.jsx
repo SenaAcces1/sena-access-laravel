@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 
 const PasswordRecovery = () => {
     const navigate = useNavigate();
@@ -29,13 +30,10 @@ const PasswordRecovery = () => {
                     </div>
                 </form>
                 <div className="mt-4 text-center">
-                    <p className="mb-2 text-light">¿Recordaste tu contraseña? <Link to="/" className="custom-link fw-bold">Inicia sesión</Link></p>
+                    <p className="mb-2 theme-text">¿Recordaste tu contraseña? <Link to="/" className="custom-link fw-bold">Inicia sesión</Link></p>
                 </div>
             </div>
-            <footer className="mt-auto py-3 text-center w-100 footer-text">
-                <p className="mb-0 fw-bold">_SenaAccess_</p>
-                <p className="mb-0">© 2026 SENA & SCS. Todos los derechos reservados.</p>
-            </footer>
+            <Footer />
         </div>
     );
 };

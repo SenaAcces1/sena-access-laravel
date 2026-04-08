@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Register = () => {
                     <h2 className="fw-bold mb-0">SenaAccess</h2>
                     <h5 className="fw-light text-success">Registro de Usuario</h5>
                     <hr className="border-success opacity-25" />
-                    <p className="small text-light opacity-75 mt-3">Por favor, llene correctamente los siguientes datos</p>
+                    <p className="small theme-text opacity-75 mt-3">Por favor, llene correctamente los siguientes datos</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
@@ -128,15 +129,12 @@ const Register = () => {
 
                     <div className="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
                         <button className="btn btn-glow btn-primary-login w-100 fw-bold py-3" type="submit">REGISTRARSE</button>
-                        <Link to="/" className="btn btn-glow w-100 text-center text-decoration-none text-white d-flex align-items-center justify-content-center">VOLVER AL LOGIN</Link>
+                        <Link to="/" className="btn btn-glow w-100 text-center text-decoration-none d-flex align-items-center justify-content-center">VOLVER AL LOGIN</Link>
                     </div>
                 </form>
             </div>
 
-            <footer className="mt-auto py-3 text-center w-100 footer-text">
-                <p className="mb-0 fw-bold">_SenaAccess_</p>
-                <p className="mb-0 small opacity-75">© 2026 SENA & SCS. Todos los derechos reservados.</p>
-            </footer>
+            <Footer />
         </div>
     );
 };

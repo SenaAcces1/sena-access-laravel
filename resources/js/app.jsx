@@ -1,7 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -15,10 +15,36 @@ import Admin from './components/Admin';
 console.log("Iniciando aplicación React...");
 
 const App = () => {
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+    useEffect(() => {
+        if (theme === 'light') {
+            document.body.classList.add('light-mode');
+        } else {
+            document.body.classList.remove('light-mode');
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+    };
+
     console.log("Renderizando componente App...");
     return (
         <BrowserRouter>
-            <div style={{color: 'white', position: 'fixed', bottom: 10, right: 10, background: 'rgba(0,0,0,0.5)', padding: '5px', zIndex: 9999}}>
+            {/* Botón de Modo Claro/Oscuro */}
+            <button 
+                onClick={toggleTheme}
+                className="theme-toggle-btn"
+                aria-label="Toggle theme"
+            >
+                <span className="material-symbols-outlined">
+                    {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+                </span>
+            </button>
+
+            <div style={{color: 'var(--text-color)', position: 'fixed', bottom: 10, right: 10, background: 'var(--glass-bg)', padding: '5px', zIndex: 9999, borderRadius: '5px', fontSize: '12px'}}>
                 Popayán - {new Date().toLocaleTimeString()}
             </div>
             <Suspense fallback={<div className="text-white text-center mt-5">Cargando componentes...</div>}>
@@ -30,7 +56,7 @@ const App = () => {
                     <Route path="/fingerprint" element={<Fingerprint />} />
                     <Route path="/loading" element={<Loading />} />
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="*" element={<div className="text-white">404 - Página no encontrada</div>} />
+                    <Route path="*" element={<div style={{color: 'var(--text-color)'}}>404 - Página no encontrada</div>} />
                 </Routes>
             </Suspense>
         </BrowserRouter>

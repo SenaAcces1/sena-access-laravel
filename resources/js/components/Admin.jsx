@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Footer from './Footer';
 
-const Admin = () => { // funcion flecha para el componente Admin
+const Admin = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
@@ -110,98 +111,100 @@ const Admin = () => { // funcion flecha para el componente Admin
     if (loading) return <div className="text-white text-center mt-5">Cargando...</div>;
 
     return (
-        <div className="container mt-5 text-white text-center fade-in-up">
-            <div className=" justify-content-between align-items-center text-center mb-4">
-                <h2 className="mb-0">Panel de Administración</h2>
-            </div>
-            
-            {editingUser && (
-                <div className="glass-box p-4 mb-5 mx-auto" style={{maxWidth: '800px'}}>
-                    <h3 className="text-center mb-4">Editar Usuario</h3>
-                    <form onSubmit={handleUpdate}>
-                        <div className="row">
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Nombre</label>
-                                <input type="text" name="user_name" className="form-control bg-dark text-white border-success" value={formData.user_name} onChange={handleChange} required />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Apellido</label>
-                                <input type="text" name="user_lastname" className="form-control bg-dark text-white border-success" value={formData.user_lastname} onChange={handleChange} required />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Email</label>
-                                <input type="email" name="user_email" className="form-control bg-dark text-white border-success" value={formData.user_email} onChange={handleChange} required />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
-                                <input type="password" name="user_password" className="form-control bg-dark text-white border-success" value={formData.user_password} onChange={handleChange} />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Ficha</label>
-                                <input type="number" name="user_coursenumber" className="form-control bg-dark text-white border-success" value={formData.user_coursenumber} onChange={handleChange} required />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Programa</label>
-                                <input type="text" name="user_program" className="form-control bg-dark text-white border-success" value={formData.user_program} onChange={handleChange} required />
-                            </div>
-                            <div className="col-md-6 mb-3">
-                                <label className="form-label">Rol</label>
-                                <select name="fk_id_rol" className="form-control bg-dark text-white border-success" value={formData.fk_id_rol} onChange={handleChange} required>
-                                    <option value="">Seleccione un rol</option>
-                                    {roles.map(role => (
-                                        <option key={role.id_rol} value={role.id_rol}>{role.rol_name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="d-flex gap-2 mt-3">
-                            <button type="submit" className="btn btn-success flex-grow-1">Guardar Cambios</button>
-                            <button type="button" className="btn btn-secondary flex-grow-1" onClick={handleCancelEdit}>Cancelar</button>
-                        </div>
-                    </form>
+        <div className="d-flex flex-column align-items-center min-vh-100">
+            <div className="container mt-5 text-white text-center fade-in-up my-auto py-5">
+                <div className=" justify-content-between align-items-center text-center mb-4">
+                    <h2 className="mb-0">Panel de Administración</h2>
                 </div>
-            )}
 
-            <div className="table-responsive glass-box p-4 mb-5 mx-auto " style={{maxWidth: '1000px'}}>
-                <table className="table table-dark table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Rol</th>
-                            <th>Ficha</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map(user => (
-                            <tr key={user.id_usuario}>
-                                <td>{user.id_usuario}</td>
-                                <td>{user.user_name} {user.user_lastname}</td>
-                                <td>{user.user_email}</td>
-                                <td><span className="badge bg-success">{user.role?.rol_name}</span></td>
-                                <td>{user.user_coursenumber}</td>
-                                <td>
-                                    <div className="d-flex gap-2">
-                                        <button className="btn btn-warning btn-sm" onClick={() => handleEditClick(user)}>Editar</button>
-                                        <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id_usuario)}>Eliminar</button>
-                                    </div>
-                                </td>
+                {editingUser && (
+                    <div className="glass-box p-4 mb-5 mx-auto" style={{maxWidth: '800px'}}>
+                        <h3 className="text-center mb-4">Editar Usuario</h3>
+                        <form onSubmit={handleUpdate}>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Nombre</label>
+                                    <input type="text" name="user_name" className="form-control bg-dark text-white border-success" value={formData.user_name} onChange={handleChange} required />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Apellido</label>
+                                    <input type="text" name="user_lastname" className="form-control bg-dark text-white border-success" value={formData.user_lastname} onChange={handleChange} required />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Email</label>
+                                    <input type="email" name="user_email" className="form-control bg-dark text-white border-success" value={formData.user_email} onChange={handleChange} required />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Nueva Contraseña (dejar en blanco para no cambiar)</label>
+                                    <input type="password" name="user_password" className="form-control bg-dark text-white border-success" value={formData.user_password} onChange={handleChange} />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Ficha</label>
+                                    <input type="number" name="user_coursenumber" className="form-control bg-dark text-white border-success" value={formData.user_coursenumber} onChange={handleChange} required />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Programa</label>
+                                    <input type="text" name="user_program" className="form-control bg-dark text-white border-success" value={formData.user_program} onChange={handleChange} required />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label className="form-label">Rol</label>
+                                    <select name="fk_id_rol" className="form-control bg-dark text-white border-success" value={formData.fk_id_rol} onChange={handleChange} required>
+                                        <option value="">Seleccione un rol</option>
+                                        {roles.map(role => (
+                                            <option key={role.id_rol} value={role.id_rol}>{role.rol_name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="d-flex gap-2 mt-3">
+                                <button type="submit" className="btn btn-success flex-grow-1">Guardar Cambios</button>
+                                <button type="button" className="btn btn-secondary flex-grow-1" onClick={handleCancelEdit}>Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+
+                <div className="table-responsive glass-box p-4 mb-5 mx-auto " style={{maxWidth: '1000px'}}>
+                    <table className="table table-dark table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Rol</th>
+                                <th>Ficha</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <br></br>
-                                                            <button className="btn btn-sm btn-outline-danger " onClick={handleLogout}>
+                        </thead>
+                        <tbody>
+                            {users.map(user => (
+                                <tr key={user.id_usuario}>
+                                    <td>{user.id_usuario}</td>
+                                    <td>{user.user_name} {user.user_lastname}</td>
+                                    <td>{user.user_email}</td>
+                                    <td><span className="badge bg-success">{user.role?.rol_name}</span></td>
+                                    <td>{user.user_coursenumber}</td>
+                                    <td>
+                                        <div className="d-flex gap-2">
+                                            <button className="btn btn-warning btn-sm" onClick={() => handleEditClick(user)}>Editar</button>
+                                            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(user.id_usuario)}>Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <br></br>
+                <button className="btn btn-sm btn-outline-danger" onClick={handleLogout}>
                     <span className="material-symbols-outlined">logout</span>
                     Cerrar Sesión
                 </button>
+            </div>
+            <Footer />
         </div>
-        
-        
     );
-};
+    };
+
 
 export default Admin;

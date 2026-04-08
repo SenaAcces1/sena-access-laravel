@@ -1,5 +1,36 @@
 @charset "UTF-8";
 
+:root {
+    --primary-color: #02d914;
+    --success-color: #16a34a;
+    --bg-color: rgba(10, 10, 10, 0.55);
+    --card-bg: rgba(10, 10, 10, 0.55);
+    --text-main: #ffffff;
+    --hover-color: gray;
+    
+    /* Theme Variables */
+    --bg-image: url('/public/Icons/background.jpeg');
+    --bg-overlay: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.8));
+    --glass-bg: rgba(10, 10, 10, 0.7);
+    --text-color: #ffffffd7;
+    --input-text: #fff;
+    --input-label: rgba(255, 255, 255, 0.7);
+    --footer-bg: rgba(10, 10, 10, 0.55);
+}
+
+body.light-mode {
+    --bg-image: url('/public/Icons/background-day.png');
+    --bg-overlay: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --text-color: #1a1a1a;
+    --input-text: #1a1a1a;
+    --input-label: rgba(0, 0, 0, 0.6);
+    --footer-bg: rgba(255, 255, 255, 0.8);
+    --bg-color: rgba(255, 255, 255, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #1a1a1a;
+}
+
 /* =========================================
    ESTILOS GENERALES
    ========================================= */
@@ -7,14 +38,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', 'Roboto', sans-serif;
-    /* Fondo con overlay claro y desenfoque sutil */
-    /* background: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.8)), url('/public/Icons/background-day.png') ; */
-    /* Fondo con overlay más oscuro y desenfoque sutil */
-    background: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.8)), url('/public/Icons/background.jpeg') ;
-    background-size: 60%; 
-    backdrop-filter: blur(2px); /* Suaviza el patrón de fondo */
-    animation: moveBackground 60s linear infinite; /* Animación más lenta para no distraer */
-    color: #ffffffd7;
+    background: var(--bg-overlay), var(--bg-image);
+    background-size: 60% auto;
+    backdrop-filter: blur(2px);
+    animation: moveBackground 60s linear infinite;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,6 +50,44 @@ body {
     min-height: 100vh;
     transition: all 0.3s ease;
 }
+
+/* Fix for table and inputs in light mode */
+body.light-mode .table {
+    --bs-table-bg: rgba(255, 255, 255, 0.8);
+    --bs-table-color: #1a1a1a;
+}
+
+body.light-mode .form-control {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #1a1a1a !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--glass-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(2, 217, 20, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-btn:hover {
+    transform: rotate(30deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(2, 217, 20, 0.5);
+    background: rgba(2, 217, 20, 0.1);
+}
+
 @keyframes moveBackground {
     from {
         background-position: 0% center;
@@ -54,7 +120,7 @@ body {
    CONTENEDORES  (Efecto Cristal)
    ========================================= */
 .glass-box {
-    background: rgba(10, 10, 10, 0.7); /* Slightly darker for better contrast */
+    background: var(--glass-bg);
     box-shadow: 0 1px 30px rgba(2, 217, 20, 0.2);
     border: 1px solid rgba(2, 217, 20, 0.3);
     backdrop-filter: blur(15px);
@@ -98,7 +164,7 @@ body {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
-    color: #fff;
+    color: var(--input-text);
     border: none;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     outline: none;
@@ -112,7 +178,7 @@ body {
     left: 0;
     padding: 10px 0;
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--input-label);
     pointer-events: none;
     transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -165,7 +231,7 @@ body {
     position: relative;
     display: inline-block;
     padding: 12px 24px;
-    color: #ffffff;
+    color: var(--text-color); /* Updated to use theme variable */
     font-size: 15px;
     text-decoration: none;
     text-transform: uppercase;
@@ -200,6 +266,14 @@ body {
     transform: translateY(-2px);
 }
 
+.theme-text {
+    color: var(--text-color) !important;
+}
+
+.theme-bg {
+    background: var(--glass-bg) !important;
+}
+
 /* =========================================
    ENLACES CUSTOM
    ========================================= */
@@ -220,109 +294,98 @@ body {
    ========================================= */
 .footer-text {
     font-size: 0.85rem;
-    color: rgba(232, 252, 235, 0.74);
-    background: rgba(10, 10, 10, 0.55);
+    color: var(--text-color);
+    background: var(--footer-bg);
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border: 1px solid rgba(170, 209, 170, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     width: max-content;
+    border-radius: 15px 15px 0 0%;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
+.container {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 2px solid rgba(170, 209, 170, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
 
-/*        */
+h2 { margin-bottom: 2rem; color: var(--primary-color); }
 
-:root {
-            --primary-color:#02d914;;
-            --success-color: #16a34a;
-            --bg-color: rgba(10, 10, 10, 0.55);
-            --card-bg: rgba(10, 10, 10, 0.55);
-            --text-main: #ffffff;
-            --hoover-color: gray; 
-        }
+.fingerprint-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
 
-        .container {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 2px solid rgba(170, 209, 170, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            text-align: center;
-        }
+.hand-card {
+    flex: 1;
+    min-width: 250px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        h2 { margin-bottom: 2rem; color: var(--primary-color); }
+.hand-card:hover {
+    border-color: var(--primary-color);
+    background-color: var(--hover-color)
+}
 
-        .fingerprint-section {
-            display: flex;
-            justify-content: space-around;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
+.icon-huella {
+    font-size: 80px !important;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
 
-        .hand-card {
-            flex: 1;
-            min-width: 250px;
-            border: 2px dashed var(--primary-color);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.hand-card.active .icon-huella {
+    color: var(--primary-color);
+}
 
-        .hand-card:hover {
-            border-color: var(--primary-color);
-            background-color: var(--hoover-color)
-        }
+.btn-registrar {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+}
 
-        .icon-huella {
-            font-size: 80px !important;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
+.btn-registrar:hover {
+    background-color: #1d4ed8;
+}
 
-        .hand-card.active .icon-huella {
-            color: var(--primary-color);
-        }
+.status-badge {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: var(--primary-color);
+    color: var(--text-main);
+}
 
-        .btn-registrar {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: background 0.2s;
-        }
-
-        .btn-registrar:hover {
-            background-color: #1d4ed8;
-        }
-
-        .status-badge {
-            font-size: 0.8rem;
-            margin-top: 1rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            background: var(--primary-color);
-            color: var(--text-main);
-        }
-
-        /* Estilo para simular huella capturada */
-        .captured {
-            border-color: var(--success-color);
-            background-color: var(--bg-color);
-        }
-        .captured .icon-huella { color: var(--success-color); }
-
-
-
+/* Estilo para simular huella capturada */
+.captured {
+    border-color: var(--success-color);
+    background-color: var(--bg-color);
+}
+.captured .icon-huella { color: var(--success-color); }
