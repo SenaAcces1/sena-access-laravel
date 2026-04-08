@@ -23,9 +23,9 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="mt-2 d-flex justify-content-center gap-3">
-                    <a href="#" className=" fw-light custom-link small opacity-50 hover-opacity-100">Privacidad</a>
-                    <a href="#" className=" fw-light custom-link small opacity-50 hover-opacity-100">Términos</a>
-                    <a href="#" className=" fw-light custom-link small opacity-50 hover-opacity-100">Soporte</a>
+                    <a href="#" className="custom-link small opacity-75 theme-text hover-opacity-100">Privacidad</a>
+                    <a href="#" className="custom-link small opacity-75 theme-text hover-opacity-100">Términos</a>
+                    <a href="#" className="custom-link small opacity-75 theme-text hover-opacity-100">Soporte</a>
                 </div>
             </div>
         </footer>
