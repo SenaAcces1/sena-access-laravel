@@ -223,9 +223,10 @@ body {
     color: rgba(232, 252, 235, 0.74);
     background: rgba(10, 10, 10, 0.55);
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border: 2px solid rgba(170, 209, 170, 0.2);
+    border: 1px solid rgba(170, 209, 170, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    width: max-content;
 }
 
 

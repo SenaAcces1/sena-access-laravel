@@ -19,7 +19,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div style={{color: 'white', position: 'fixed', bottom: 10, right: 10, background: 'rgba(0,0,0,0.5)', padding: '5px', zIndex: 9999}}>
-                React Router Activo
+                Popayán - {new Date().toLocaleTimeString()}
             </div>
             <Suspense fallback={<div className="text-white text-center mt-5">Cargando componentes...</div>}>
                 <Routes>

@@ -131,8 +131,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-
-            <footer className="mt-auto py-3 text-center w-100 footer-text">
+            <footer className="mt-auto py-4 text-center w-100 footer-text">
                 <p className="mb-0 fw-bold">_SenaAccess_</p>
                 <p className="mb-0 small opacity-75">© 2026 SENA & SCS. Todos los derechos reservados.</p>
             </footer>
