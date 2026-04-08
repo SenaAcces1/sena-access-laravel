@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Admin = () => {
+const Admin = () => { // funcion flecha para el componente Admin
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
@@ -48,19 +48,21 @@ const Admin = () => {
         }
     };
 
+    // funcion flecha para manejar la funcion de edicion de usuario
     const handleEditClick = (user) => {
         setEditingUser(user.id_usuario);
         setFormData({
             user_name: user.user_name,
             user_lastname: user.user_lastname,
             user_email: user.user_email,
-            user_password: '', // Password empty for security, only update if filled
+            //Password vacio para no mostrarlo, se actualiza solo si se ingresa uno nuevo
+            user_password: '', 
             user_coursenumber: user.user_coursenumber,
             user_program: user.user_program,
             fk_id_rol: user.fk_id_rol
         });
     };
-
+    // funcion flecha para manejar la cancelacion de edicion de usuario
     const handleCancelEdit = () => {
         setEditingUser(null);
         setFormData({
@@ -73,7 +75,7 @@ const Admin = () => {
             fk_id_rol: ''
         });
     };
-
+    // funcion flecha para manejar los cambios en el formulario de edicion de usuario
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -108,8 +110,8 @@ const Admin = () => {
     if (loading) return <div className="text-white text-center mt-5">Cargando...</div>;
 
     return (
-        <div className="container mt-5 text-white">
-            <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="container mt-5 text-white text-center fade-in-up">
+            <div className=" justify-content-between align-items-center text-center mb-4">
                 <h2 className="mb-0">Panel de Administración</h2>
             </div>
             
@@ -160,7 +162,7 @@ const Admin = () => {
                 </div>
             )}
 
-            <div className="table-responsive glass-box p-4">
+            <div className="table-responsive glass-box p-4 mb-5 mx-auto " style={{maxWidth: '1000px'}}>
                 <table className="table table-dark table-hover mb-0">
                     <thead>
                         <tr>

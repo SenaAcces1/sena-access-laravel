@@ -49,8 +49,8 @@ if (rootElement) {
         );
         console.log("Montado ejecutado sin errores inmediatos.");
     } catch (err) {
-        console.error("Error durante el renderizado:", err);
+        console.error("Error durante el renderizado de App.jsx", err);
     }
 } else {
-    console.error("¡No se encontró el elemento #app en el DOM!");
+    console.error("No se encontró el elemento \"app\" en el DOM.");
 }
