@@ -45,8 +45,8 @@ const App = () => {
             </button>
 
             <div style={{color: 'var(--text-color)', position: 'fixed', bottom: 10, right: 10, background: 'var(--glass-bg)', padding: '5px', zIndex: 9999, borderRadius: '5px', fontSize: '12px'}}>
-                Popayán - {new Date().toLocaleTimeString()}
             </div>
+            Popayán - {new Date().toLocaleTimeString()}
             <Suspense fallback={<div className="text-white text-center mt-5">Cargando componentes...</div>}>
                 <Routes>
                     <Route path="/" element={<Login />} />

@@ -28,8 +28,8 @@ const Fingerprint = () => {
     const allCaptured = leftCaptured && rightCaptured;
 
     return (
-        <div className="d-flex flex-column align-items-center min-vh-100 py-5">
-            <div className="glass-box fade-in-up my-auto py-5 shadow-lg" style={{ width: '95%', maxWidth: '1000px', border: '1px solid rgba(2, 217, 20, 0.2)' }}>
+        <div className="d-flex flex-column align-items-center min-vh-100 py-5 fade-in-up">
+            <div className="glass-box my-auto py-5 shadow-lg" style={{ width: '95%', maxWidth: '1000px', border: '1px solid rgba(2, 217, 20, 0.2)' }}>
                 <div className="text-center mb-5">
                     <span className="material-symbols-outlined text-success mb-2" style={{ fontSize: '48px' }}>fingerprint</span>
                     <h2 className="fw-bold mb-1" style={{ fontSize: '2.5rem', letterSpacing: '-1px' }}>

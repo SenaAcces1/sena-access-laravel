@@ -145,8 +145,8 @@ const Admin = () => {
     if (loading) return <div className="text-white text-center mt-5">Cargando...</div>;
 
     return (
-        <div className="d-flex flex-column align-items-center min-vh-100">
-            <div className="container mt-5 text-white fade-in-up my-auto py-5" style={{maxWidth: '1100px', background: 'transparent', border: 'none', boxShadow: 'none'}}>
+        <div className="d-flex flex-column align-items-center min-vh-100 fade-in-up">
+            <div className="container mt-5 text-white my-auto py-5" style={{maxWidth: '1100px', background: 'transparent', border: 'none', boxShadow: 'none'}}>
                 
                 <div className="text-center mb-5">
                     <h2 className="mb-2" style={{fontSize: '2.5rem', fontWeight: '800', letterSpacing: '-1px'}}>

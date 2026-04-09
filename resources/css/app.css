@@ -125,11 +125,8 @@ body {
 }
 
 .fade-in-up {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrado vertical del contenido */
-    align-items: center;     /* Centrado horizontal del contenido */
     width: 100%;
 }
 

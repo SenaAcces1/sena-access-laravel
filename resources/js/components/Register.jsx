@@ -57,8 +57,8 @@ const Register = () => {
     };
 
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-5 fade-in-up">
-            <div className="glass-box register-box p-4 p-md-5 mx-3 shadow-lg" style={{ maxWidth: '850px', border: '1px solid rgba(2, 217, 20, 0.2)' }}>
+        <div className="d-flex flex-column align-items-center fade-in-up">
+            <div className="glass-box register-box p-4 p-md-5 mx-3 shadow-lg my-5" style={{ maxWidth: '850px', border: '1px solid rgba(2, 217, 20, 0.2)' }}>
                 <div className="text-center mb-5">
                     <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" style={{ width: '80px' }} />
                     <h2 className="fw-bold mb-1" style={{ fontSize: '2rem', letterSpacing: '-1px' }}>Sena<span style={{ color: 'var(--primary-color)' }}>Access</span></h2>
