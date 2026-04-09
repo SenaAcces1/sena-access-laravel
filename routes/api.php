@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register-guest', [AuthController::class, 'registerGuest']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin Routes
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/users', [AdminController::class, 'index']);
+        Route::get('/ingresos', [AdminController::class, 'getIngresos']);
         Route::post('/users', [AdminController::class, 'createUser']);
         Route::put('/users/{id}', [AdminController::class, 'updateUser']);
         Route::delete('/users/{id}', [AdminController::class, 'deleteUser']);

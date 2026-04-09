@@ -10,11 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use \Laravel\Sanctum\PersonalAccessToken;
 
+use App\Models\Ingreso;
+use Carbon\Carbon;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'user_identification' => 'required|string|max:20|unique:usuarios',
             'user_name' => 'required|string|max:50',
             'user_lastname' => 'required|string|max:50',
             'user_email' => 'required|string|email|max:100|unique:usuarios',
@@ -31,6 +35,7 @@ class AuthController extends Controller
         $role = Role::where('rol_name', 'Aprendiz')->first();
 
         $user = User::create([
+            'user_identification' => $request->user_identification,
             'user_name' => $request->user_name,
             'user_lastname' => $request->user_lastname,
             'user_email' => $request->user_email,
@@ -56,6 +61,13 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 
+        // Crear registro de ingreso
+        Ingreso::create([
+            'ingreso_datetime' => Carbon::now(),
+            'ingreso_place' => 'Acceso Web', // Default place
+            'fk_id_user' => $user->id_usuario,
+        ]);
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -75,5 +87,45 @@ class AuthController extends Controller
             $token->delete();
         }     
         return response()->json(['message' => 'Sesión cerrada']);
+    }
+
+    public function registerGuest(Request $request)
+    {
+        $request->validate([
+            'user_identification' => 'required|string|max:20',
+            'user_name' => 'required|string|max:100',
+        ]);
+
+        // Buscar si ya existe el invitado por su identificación
+        $user = User::where('user_identification', $request->user_identification)->first();
+
+        if (!$user) {
+            // Obtener el rol de Invitado
+            $role = Role::where('rol_name', 'Invitado')->first();
+            
+            // Si no existe, crear un usuario volátil (invitado)
+            $user = User::create([
+                'user_identification' => $request->user_identification,
+                'user_name' => $request->user_name,
+                'user_lastname' => '(Invitado)',
+                'user_email' => 'guest_' . $request->user_identification . '@system.com',
+                'user_password' => Hash::make(\Illuminate\Support\Str::random(16)),
+                'user_coursenumber' => 0,
+                'user_program' => 'Visitante',
+                'fk_id_rol' => $role->id_rol,
+            ]);
+        }
+
+        // Crear registro de ingreso
+        Ingreso::create([
+            'ingreso_datetime' => Carbon::now(),
+            'ingreso_place' => 'Acceso Invitado',
+            'fk_id_user' => $user->id_usuario,
+        ]);
+
+        return response()->json([
+            'message' => 'Ingreso de invitado registrado correctamente',
+            'user' => $user
+        ], 201);
     }
 }

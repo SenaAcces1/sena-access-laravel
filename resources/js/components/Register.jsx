@@ -6,6 +6,7 @@ import Footer from './Footer';
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
+        user_identification: '',
         user_name: '',
         user_lastname: '',
         user_email: '',
@@ -16,16 +17,29 @@ const Register = () => {
     });
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
+        // Limpiar error del campo que se está editando
+        if (errors[e.target.name]) {
+            setErrors({ ...errors, [e.target.name]: null });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Validación básica de contraseñas en cliente
+        if (formData.user_password !== formData.user_password_confirmation) {
+            setErrors({ user_password_confirmation: ['Las contraseñas no coinciden'] });
+            return;
+        }
+
+        setLoading(true);
         setErrors({});
         try {
             const response = await axios.post('/api/register', formData);
@@ -34,102 +48,143 @@ const Register = () => {
         } catch (error) {
             if (error.response && error.response.data.errors) {
                 setErrors(error.response.data.errors);
-                alert('Error en el registro. Verifique los campos.');
             } else {
                 alert('Error al conectar con el servidor.');
             }
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-4 fade-in-up">
-            <div className="glass-box register-box p-4 p-md-5 mx-3">
-                <div className="text-center mb-4">
-                    <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" />
-                    <h2 className="fw-bold mb-0">SenaAccess</h2>
-                    <h5 className="fw-light text-success">Registro de Usuario</h5>
-                    <hr className="border-success opacity-25" />
-                    <p className="small theme-text opacity-75 mt-3">Por favor, llene correctamente los siguientes datos</p>
+        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100 py-5 fade-in-up">
+            <div className="glass-box register-box p-4 p-md-5 mx-3 shadow-lg" style={{ maxWidth: '850px', border: '1px solid rgba(2, 217, 20, 0.2)' }}>
+                <div className="text-center mb-5">
+                    <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" style={{ width: '80px' }} />
+                    <h2 className="fw-bold mb-1" style={{ fontSize: '2rem', letterSpacing: '-1px' }}>Sena<span style={{ color: 'var(--primary-color)' }}>Access</span></h2>
+                    <p className="theme-text opacity-75 small">Crea tu cuenta institucional para acceder al centro</p>
+                    <div className="d-flex justify-content-center mt-3">
+                        <hr className="border-success opacity-25 w-50" />
+                    </div>
                 </div>
 
-                <form onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="col-md-6 user-box">
-                            <input type="text" name="user_name" required placeholder=" " value={formData.user_name} onChange={handleChange} />
-                            <label>Nombres</label>
-                            {errors.user_name && <small className="text-danger">{errors.user_name[0]}</small>}
+                <form onSubmit={handleSubmit} className="mt-2">
+                    {/* Sección: Información Personal */}
+                    <div className="mb-4">
+                        <div className="d-flex align-items-center gap-2 mb-3 text-success opacity-75">
+                            <span className="material-symbols-outlined small">person</span>
+                            <span className="text-uppercase small fw-bold" style={{ letterSpacing: '1px' }}>Información Personal</span>
                         </div>
-                        <div className="col-md-6 user-box">
-                            <input type="text" name="user_lastname" required placeholder=" " value={formData.user_lastname} onChange={handleChange} />
-                            <label>Apellidos</label>
-                            {errors.user_lastname && <small className="text-danger">{errors.user_lastname[0]}</small>}
+                        <div className="row g-4">
+                            <div className="col-md-12 user-box mb-0">
+                                <input type="text" name="user_identification" required placeholder=" " value={formData.user_identification} onChange={handleChange} className={errors.user_identification ? 'border-danger' : ''} />
+                                <label>Número de Identificación</label>
+                                {errors.user_identification && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_identification[0]}</div>}
+                            </div>
+                            <div className="col-md-6 user-box mb-0">
+                                <input type="text" name="user_name" required placeholder=" " value={formData.user_name} onChange={handleChange} />
+                                <label>Nombres</label>
+                                {errors.user_name && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_name[0]}</div>}
+                            </div>
+                            <div className="col-md-6 user-box mb-0">
+                                <input type="text" name="user_lastname" required placeholder=" " value={formData.user_lastname} onChange={handleChange} />
+                                <label>Apellidos</label>
+                                {errors.user_lastname && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_lastname[0]}</div>}
+                            </div>
                         </div>
-                        <div className="col-md-6 user-box">
-                            <input type="email" name="user_email" required placeholder=" " value={formData.user_email} onChange={handleChange} />
-                            <label>Correo electrónico</label>
-                            {errors.user_email && <small className="text-danger">{errors.user_email[0]}</small>}
+                    </div>
+
+                    {/* Sección: Información Académica */}
+                    <div className="mb-4 pt-2">
+                        <div className="d-flex align-items-center gap-2 mb-3 text-success opacity-75">
+                            <span className="material-symbols-outlined small">school</span>
+                            <span className="text-uppercase small fw-bold" style={{ letterSpacing: '1px' }}>Formación Académica</span>
                         </div>
-                        <div className="col-md-6 user-box">
-                            <input type="number" name="user_coursenumber" required placeholder=" " value={formData.user_coursenumber} onChange={handleChange} />
-                            <label>Número de ficha</label>
-                            {errors.user_coursenumber && <small className="text-danger">{errors.user_coursenumber[0]}</small>}
+                        <div className="row g-4">
+                            <div className="col-md-12 user-box mb-0">
+                                <input type="email" name="user_email" required placeholder=" " value={formData.user_email} onChange={handleChange} />
+                                <label>Correo Electrónico Institucional</label>
+                                {errors.user_email && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_email[0]}</div>}
+                            </div>
+                            <div className="col-md-5 user-box mb-0">
+                                <input type="number" name="user_coursenumber" required placeholder=" " value={formData.user_coursenumber} onChange={handleChange} />
+                                <label>Número de Ficha</label>
+                                {errors.user_coursenumber && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_coursenumber[0]}</div>}
+                            </div>
+                            <div className="col-md-7 user-box mb-0">
+                                <input type="text" name="user_program" required placeholder=" " value={formData.user_program} onChange={handleChange} />
+                                <label>Programa de Formación</label>
+                                {errors.user_program && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_program[0]}</div>}
+                            </div>
                         </div>
-                        <div className="col-md-6 user-box">
-                            <input type="text" name="user_program" required placeholder=" " value={formData.user_program} onChange={handleChange} />
-                            <label>Programa de formación</label>
-                            {errors.user_program && <small className="text-danger">{errors.user_program[0]}</small>}
+                    </div>
+
+                    {/* Sección: Seguridad */}
+                    <div className="mb-5 pt-2">
+                        <div className="d-flex align-items-center gap-2 mb-3 text-success opacity-75">
+                            <span className="material-symbols-outlined small">lock</span>
+                            <span className="text-uppercase small fw-bold" style={{ letterSpacing: '1px' }}>Seguridad de la Cuenta</span>
                         </div>
-                        <div className="col-md-6 user-box">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                name="user_password" 
-                                required 
-                                placeholder=" " 
-                                value={formData.user_password} 
-                                onChange={handleChange} 
-                            />
-                            <label>Crear contraseña</label>
-                            <button 
-                                type="button" 
-                                className="password-toggle" 
-                                onClick={() => setShowPassword(!showPassword)}
-                                aria-label={showPassword ? "Ocultar" : "Mostrar"}
-                            >
-                                {showPassword ? (
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                        <line x1="12" y1="5" x2="12" y2="2" />
-                                        <line x1="5" y1="8" x2="3" y2="5" />
-                                        <line x1="19" y1="8" x2="21" y2="5" />
-                                    </svg>
-                                ) : (
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M2 10c4 6 16 6 20 0" />
-                                        <line x1="12" y1="15" x2="12" y2="18" />
-                                        <line x1="7" y1="14" x2="5" y2="17" />
-                                        <line x1="17" y1="14" x2="19" y2="17" />
-                                    </svg>
-                                )}
-                            </button>
-                            {errors.user_password && <small className="text-danger">{errors.user_password[0]}</small>}
-                        </div>
-                        <div className="col-md-6 user-box">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                name="user_password_confirmation" 
-                                required 
-                                placeholder=" " 
-                                value={formData.user_password_confirmation} 
-                                onChange={handleChange} 
-                            />
-                            <label>Confirmar contraseña</label>
+                        <div className="row g-4">
+                            <div className="col-md-6 user-box mb-0">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="user_password" 
+                                    required 
+                                    placeholder=" " 
+                                    value={formData.user_password} 
+                                    onChange={handleChange} 
+                                />
+                                <label>Crear Contraseña</label>
+                                <button 
+                                    type="button" 
+                                    className="password-toggle" 
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{ top: '10px' }}
+                                >
+                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                                        {showPassword ? 'visibility_off' : 'visibility'}
+                                    </span>
+                                </button>
+                                {errors.user_password && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_password[0]}</div>}
+                            </div>
+                            <div className="col-md-6 user-box mb-0">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="user_password_confirmation" 
+                                    required 
+                                    placeholder=" " 
+                                    value={formData.user_password_confirmation} 
+                                    onChange={handleChange} 
+                                />
+                                <label>Confirmar Contraseña</label>
+                                {errors.user_password_confirmation && <div className="text-danger mt-1 small d-flex align-items-center gap-1"><span className="material-symbols-outlined small" style={{fontSize: '14px'}}>error</span> {errors.user_password_confirmation[0]}</div>}
+                            </div>
                         </div>
                     </div>
 
                     <div className="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
-                        <button className="btn btn-glow btn-primary-login w-100 fw-bold py-3" type="submit">REGISTRARSE</button>
-                        <Link to="/" className="btn btn-glow w-100 text-center text-decoration-none d-flex align-items-center justify-content-center">VOLVER AL LOGIN</Link>
+                        <button 
+                            className="btn btn-glow btn-primary-login w-100 fw-bold py-3 d-flex align-items-center justify-content-center gap-2" 
+                            type="submit"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    PROCESANDO...
+                                </>
+                            ) : (
+                                <>
+                                    <span className="material-symbols-outlined">how_to_reg</span>
+                                    CREAR CUENTA
+                                </>
+                            )}
+                        </button>
+                        <Link to="/" className="btn btn-glow w-100 text-center text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                            <span className="material-symbols-outlined">login</span>
+                            VOLVER AL LOGIN
+                        </Link>
                     </div>
                 </form>
             </div>

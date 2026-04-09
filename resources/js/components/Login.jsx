@@ -8,6 +8,11 @@ const Login = () => {
     const [user_email, setEmail] = useState('');
     const [user_password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [isGuestMode, setIsGuestMode] = useState(false);
+    const [guestData, setGuestData] = useState({
+        user_name: '',
+        user_identification: ''
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,6 +45,72 @@ const Login = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    const handleGuestSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/register-guest', guestData);
+            alert(response.data.message);
+            setIsGuestMode(false);
+            setGuestData({ user_name: '', user_identification: '' });
+            navigate('/loading');
+        } catch (error) {
+            alert('Error al registrar ingreso de invitado');
+        }
+    };
+
+    if (isGuestMode) {
+        return (
+            <div className="d-flex flex-column justify-content-center align-items-center vh-90 fade-in-up">
+                <div className="glass-box p-4 p-md-5 mx-3">
+                    <div className="text-center mb-4">
+                        <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" />
+                        <h2 className="fw-bold mb-0">Invitado</h2>
+                        <h5 className="fw-light text-success">Ingreso Volátil</h5>
+                        <hr className="border-success opacity-25" />
+                        <p className="mt-3 small opacity-75">Ingrese sus datos básicos para registrar su entrada</p>
+                    </div>
+
+                    <form onSubmit={handleGuestSubmit}>
+                        <div className="user-box">
+                            <input 
+                                type="text" 
+                                required 
+                                placeholder=" "
+                                value={guestData.user_identification}
+                                onChange={(e) => setGuestData({...guestData, user_identification: e.target.value})}
+                            />
+                            <label>Número de Documento</label>
+                        </div>
+                        <div className="user-box">
+                            <input 
+                                type="text" 
+                                required 
+                                placeholder=" "
+                                value={guestData.user_name}
+                                onChange={(e) => setGuestData({...guestData, user_name: e.target.value})}
+                            />
+                            <label>Nombre Completo</label>
+                        </div>
+
+                        <div className="d-grid gap-3 mt-4">
+                            <button className="btn btn-glow btn-primary-login w-100 fw-bold py-3" type="submit">
+                                REGISTRAR INGRESO
+                            </button>
+                            <button 
+                                type="button" 
+                                className="btn btn-glow w-100" 
+                                onClick={() => setIsGuestMode(false)}
+                            >
+                                VOLVER AL LOGIN
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center vh-90 fade-in-up">
@@ -114,9 +185,13 @@ const Login = () => {
                             <span className="position-absolute top-50 start-50 translate-middle theme-bg theme-text px-3 small opacity-50">O</span>
                         </div>
 
-                        <Link to="/loading" className="btn btn-glow w-100 fw-bold" style={{textDecoration: 'none', color: 'inherit'}}>
+                        <button 
+                            type="button" 
+                            className="btn btn-glow w-100 fw-bold" 
+                            onClick={() => setIsGuestMode(true)}
+                        >
                             INVITADO
-                        </Link>
+                        </button>
                     </div>
                 </form>
 
