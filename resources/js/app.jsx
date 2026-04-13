@@ -13,10 +13,11 @@ import Loading from './components/Loading';
 import Admin from './components/Admin';
 
 console.log("Iniciando aplicación React...");
-
+// Componente principal de la aplicación
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
 
+    // Efecto para aplicar el tema seleccionado y guardarlo en localStorage
     useEffect(() => {
         if (theme === 'light') {
             document.body.classList.add('light-mode');
@@ -26,6 +27,7 @@ const App = () => {
         localStorage.setItem('theme', theme);
     }, [theme]);
 
+    // Función para alternar entre temas
     const toggleTheme = () => {
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
     };

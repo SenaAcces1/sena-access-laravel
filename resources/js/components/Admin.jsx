@@ -22,9 +22,11 @@ const Admin = () => {
         user_program: '',
         fk_id_rol: ''
     });
-
+    //nombre de la funcion para cargar los datos de usuarios, roles e ingresos desde la API al montar el componente
     useEffect(() => {
+        // Función para cargar usuarios, roles e ingresos desde la API
         const fetchData = async () => {
+            // Realizamos las tres solicitudes en paralelo para optimizar tiempos
             try {
                 const [usersResponse, rolesResponse, ingresosResponse] = await Promise.all([
                     axios.get('/api/admin/users'),
@@ -34,8 +36,18 @@ const Admin = () => {
                 setUsers(usersResponse.data);
                 setRoles(rolesResponse.data);
                 setIngresos(ingresosResponse.data);
+                //catch para manejar errores en las solicitudes
             } catch (error) {
-                console.error('Error fetching data', error);
+                console.error('Error cargando datos FetchData: ', error);
+                // Para errores de autenticación, redirigimos al login y limpiamos el token
+                if (error.response && error.response.status === 401) {
+                    alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('user_role');
+                    navigate('/login');
+                } else {
+                    alert('Error al cargar datos. Intenta nuevamente más tarde.');
+                }
             } finally {
                 setLoading(false);
             }
@@ -43,7 +55,7 @@ const Admin = () => {
         fetchData();
     }, []);
 
-    // Filtering logic
+    // Manejo de búsqueda para usuarios e ingresos, filtrando los datos según el término de búsqueda ingresado por el usuario
     const filteredUsers = users.filter(user => {
         const search = searchTermUsers.toLowerCase();
         return (

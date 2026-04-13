@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Footer = () => {
+    // Obtener el año actual para mostrar en el pie de página, esto para mantenerlo actualizado automáticamente cada año sin necesidad de editar el código
     const currentYear = new Date().getFullYear();
     
     return (

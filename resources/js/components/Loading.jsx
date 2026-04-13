@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// Componente de carga que muestra una animación y redirige al usuario después de unos segundos
 const Loading = () => {
     const navigate = useNavigate();
 

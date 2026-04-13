@@ -15,8 +15,11 @@ const Register = () => {
         user_coursenumber: '',
         user_program: ''
     });
+    // Estado para almacenar errores de validación devueltos por la API, esto para mostrar mensajes de error específicos debajo de cada campo del formulario
     const [errors, setErrors] = useState({});
+    // Estado para controlar la visibilidad de las contraseñas y mostrar un spinner de carga mientras se procesa el registro
     const [showPassword, setShowPassword] = useState(false);
+    // Estado para controlar la visibilidad del spinner de carga
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
