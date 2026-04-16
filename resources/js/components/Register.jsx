@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Footer from './Footer';
-
+// Componente de registro que permite a los usuarios crear una cuenta, con validación de campos y manejo de errores devueltos por la API
 const Register = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     // Estado para controlar la visibilidad del spinner de carga
     const [loading, setLoading] = useState(false);
-
+    // Función para manejar cambios en los campos del formulario, actualizando el estado formData y limpiando errores
     const handleChange = (e) => {
         setFormData({
             ...formData,

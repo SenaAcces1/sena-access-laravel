@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+// Rutas de autenticación con Sanctum
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register-guest', [AuthController::class, 'registerGuest']);

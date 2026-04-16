@@ -8,7 +8,7 @@ const Fingerprint = () => {
     const [rightCaptured, setRightCaptured] = useState(false);
     const [scanningLeft, setScanningLeft] = useState(false);
     const [scanningRight, setScanningRight] = useState(false);
-
+    // Función para simular el proceso de escaneo de huellas, activando animaciones y estados correspondientes para cada mano
     const handleScan = (hand) => {
         if (hand === 'left') {
             setScanningLeft(true);

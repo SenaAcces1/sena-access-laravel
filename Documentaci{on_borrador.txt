@@ -44,7 +44,8 @@ Python:
 
 *Estilos: Css5+Bootstrap 5 (Diseño responsivo y estandarizado).
 
-*Comunicación: Inertia.js (Sincronización servidor-cliente).
+*Comunicación: API REST
+Gestionada por react-router-dom (Sincronización servidor-cliente).
 
 *Build Tool: Vite (Compilación ultrarrápida de activos usando Hot Module Replacement).
 
