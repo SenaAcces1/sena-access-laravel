@@ -63,8 +63,9 @@ class AuthController extends Controller
 
         // Crear registro de ingreso
         Ingreso::create([
-            'ingreso_datetime' => Carbon::now(),
-            'ingreso_place' => 'Acceso Web', // Default place
+            //usamos hora colombiana
+            'ingreso_datetime' => Carbon::now('America/Bogota'),
+            'ingreso_place' => 'CCyS', // Default place
             'fk_id_user' => $user->id_usuario,
         ]);
 

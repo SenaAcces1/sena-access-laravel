@@ -64,7 +64,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ingreso::class, 'fk_id_usuario', 'id_usuario');
     }
+
+    public function reportesInstructor()
+    {
+        return $this->hasMany(ReporteInstructor::class, 'fk_id_usuario', 'id_usuario');
+    }
+
+    public function Fingerprints()
+    {
+        return $this->hasMany(Fingerprint::class, 'fk_id_user', 'id_usuario');
+    }
     
+    public function Novedades()
+    {
+        return $this->hasMany(Novedad::class, 'fk_id_usuario', 'id_usuario');
+    }
 }
 
 

@@ -1,16 +1,20 @@
+import './bootstrap';
+
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
+// Importamos axios y lo asignamos a la ventana global para que esté disponible en toda la aplicación
 import axios from 'axios';
 window.axios = axios;
 
+// Configuramos axios para que incluya el encabezado 'X-Requested-With' en todas las solicitudes
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.withCredentials = true;
 
-// Add a request interceptor to include the Bearer token
+// agregamos un interceptor para incluir el token de autenticación en el encabezado Authorization de cada solicitud, si el token está presente en el almacenamiento local
 window.axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
