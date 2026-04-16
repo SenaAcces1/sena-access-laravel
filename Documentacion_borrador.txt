@@ -72,7 +72,7 @@ Uso en el proyecto:
 
 ------------------------
 
-Flujo de Trabajo (Workflow)
+Flujo de Trabajo (Workflow) General
 
 1. Autenticación: El usuario ingresa sus credenciales en el componente Login.
 2. Generación de Token: El servidor (Laravel Sanctum) valida los datos y retorna un JSON con un Access Token de corta duración.
@@ -80,6 +80,31 @@ Flujo de Trabajo (Workflow)
 4. Navegación Protegida: React Router redirige al usuario al panel correspondiente según su rol.
 5. Peticiones Autorizadas: Al navegar por el sistema (ej. cargar la lista de usuarios en Admin), Axios lee el token del LocalStorage y lo envía en el encabezado Authorization de forma automática.
 6. Gestión de Datos: El administrador puede realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) que se sincronizan en tiempo real con la base de datos MySQL mediante controladores API.
+
+------------------------
+
+Flujo de Trabajo para Creación de Vistas y Componentes
+
+Para mantener la consistencia visual y funcional del proyecto, se sigue este proceso al añadir nuevas interfaces:
+
+1. Creación del Componente (JSX):
+   - Se crea un nuevo archivo en `resources/js/components/` (ej. `Novedades.jsx`).
+   - Se utilizan componentes funcionales de React con Hooks (`useState`, `useEffect`) para manejar el estado local y los ciclos de vida.
+
+2. Aplicación de Estilos y Temas:
+   - Se utilizan las clases globales definidas en `app.css` como `glass-box` (para el efecto de transparencia), `fade-in-up` (para animaciones de entrada) y `btn-glow` (para botones estilo neón).
+   - Se aprovechan las variables CSS (`--primary-color`, `--glass-bg`) para asegurar que el componente sea compatible con el modo claro y oscuro.
+
+3. Configuración de la Ruta:
+   - En `resources/js/app.jsx`, se importa el nuevo componente.
+   - Se añade una etiqueta `<Route path="/nombre-ruta" element={<NuevoComponente />} />` dentro del componente `<Routes>`.
+
+4. Conexión con Datos (Axios):
+   - Si la vista requiere datos del servidor, se utiliza `axios.get()` o `axios.post()` dentro de un `useEffect` o manejador de eventos.
+   - Gracias a la configuración global, no es necesario añadir manualmente el token de seguridad en cada nuevo componente.
+
+5. Previsualización y Compilación:
+   - Se ejecuta `npm run dev` para que Vite procese los cambios instantáneamente (HMR - Hot Module Replacement) sin perder el estado de la aplicación.
 
 ------------------------
 
