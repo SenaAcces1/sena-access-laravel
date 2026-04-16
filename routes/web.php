@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Obtener cualquier componente, asi manejamos en SPA
 Route::get('/{any}', function () {
     return view('welcome');
 })->where('any', '.*'); 

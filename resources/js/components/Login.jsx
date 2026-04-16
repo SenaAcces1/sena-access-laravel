@@ -66,7 +66,7 @@ const Login = () => {
                     <div className="text-center mb-4">
                         <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png?rev=40" className="logosena mb-3" alt="Logo SENA" />
                         <h2 className="fw-bold mb-0">Invitado</h2>
-                        <h5 className="fw-light text-success">Ingreso Volátil</h5>
+                        <h5 className="fw-light text-success">Ingreso Rapido</h5>
                         <hr className="border-success opacity-25" />
                         <p className="mt-3 small opacity-75">Ingrese sus datos básicos para registrar su entrada</p>
                     </div>
@@ -88,6 +88,7 @@ const Login = () => {
                                 required 
                                 placeholder=" "
                                 value={guestData.user_name}
+                                // Funcion para generar los datos de invitado (guest)
                                 onChange={(e) => setGuestData({...guestData, user_name: e.target.value})}
                             />
                             <label>Nombre Completo</label>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+//desde aqui importamos los componentes de react
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -15,10 +16,12 @@
         <link rel='stylesheet' href='https://pro.fontawesome.com/releases/v5.10.2/css/all.css'>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+        //Vite React Refresh
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     </head>
     <body>
+        // desde aqui llamamos a los componentes de react
         <div id="app"></div>
         
 
